@@ -34,7 +34,7 @@ class _TextControlState extends State<TextControl> {
 
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      RaisedButton(
+      ElevatedButton(
         child: Text('Switch AppBar text', style: TextStyle(fontSize: 20)),
         onPressed: _changeHanlder,
       ),
