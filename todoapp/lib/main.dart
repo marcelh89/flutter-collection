@@ -28,6 +28,7 @@ class _TodoListState extends State<TodoList> {
       ),
       body: ListView(children: _getItems()),
       floatingActionButton: FloatingActionButton(
+        key: const Key('add'),
         onPressed: () => _displayDialog(context),
         tooltip: 'Add Item',
         child: Icon(Icons.add),
