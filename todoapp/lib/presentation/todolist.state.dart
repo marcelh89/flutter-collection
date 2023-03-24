@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/data/todo.repository.dart';
 import 'package:todoapp/domain/todo.model.dart';
 
 import 'todolist.widget.dart';
 
 class TodoListState extends State<TodoList> {
   List<Todo> _todoList = <Todo>[];
+  TodoRepository todoRepository = TodoRepository();
+
   final TextEditingController _textFieldController = TextEditingController();
+
+  TodoListState() {
+    init();
+  }
+
+  init() async {
+    await todoRepository.init();
+    var initList = await todoRepository.todos();
+    setState(() {
+      _todoList = initList;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +43,9 @@ class TodoListState extends State<TodoList> {
     // the app that the state has changed
 
     setState(() {
-      _todoList.add(Todo(new DateTime.now().millisecondsSinceEpoch, title));
+      final todo = Todo(DateTime.now().millisecondsSinceEpoch, title);
+      todoRepository.insertTodo(todo);
+      _todoList.add(todo);
     });
     _textFieldController.clear();
   }
@@ -36,6 +53,7 @@ class TodoListState extends State<TodoList> {
   void _removeTodoItem(int id) {
     setState(() {
       _todoList = _todoList.where((todo) => !identical(todo.id, id)).toList();
+      todoRepository.deleteTodo(id);
     });
     _textFieldController.clear();
   }
