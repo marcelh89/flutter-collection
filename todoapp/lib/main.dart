@@ -16,8 +16,14 @@ class TodoList extends StatefulWidget {
   _TodoListState createState() => _TodoListState();
 }
 
+class Todo {
+  int id;
+  String title;
+  Todo(this.id, this.title);
+}
+
 class _TodoListState extends State<TodoList> {
-  final List<String> _todoList = <String>[];
+  List<Todo> _todoList = <Todo>[];
   final TextEditingController _textFieldController = TextEditingController();
 
   @override
@@ -31,7 +37,7 @@ class _TodoListState extends State<TodoList> {
         key: const Key('add'),
         onPressed: () => _displayDialog(context),
         tooltip: 'Add Item',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -41,16 +47,51 @@ class _TodoListState extends State<TodoList> {
     // the app that the state has changed
 
     setState(() {
-      _todoList.add(title);
+      _todoList.add(Todo(new DateTime.now().millisecondsSinceEpoch, title));
+    });
+    _textFieldController.clear();
+  }
+
+  void _removeTodoItem(int id) {
+    setState(() {
+      _todoList = _todoList.where((todo) => !identical(todo.id, id)).toList();
     });
     _textFieldController.clear();
   }
 
   //Generate list of item widgets
-  Widget _buildTodoItem(String title) {
+  Widget _buildTodoItem(Todo todo, BuildContext context) {
     return ListTile(
-      title: Text(title),
+      title: Text(todo.title),
+      onTap: () => _displayDeleteDialog(context, todo),
     );
+  }
+
+  //Generate a single item widget
+  Future<dynamic> _displayDeleteDialog(BuildContext context, Todo todo) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Remove todo'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('REMOVE'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  //print(context);
+                  _removeTodoItem(todo.id);
+                },
+              ),
+              TextButton(
+                child: const Text('CANCEL'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 
   //Generate a single item widget
@@ -85,8 +126,8 @@ class _TodoListState extends State<TodoList> {
 
   List<Widget> _getItems() {
     final List<Widget> _todoWidgets = <Widget>[];
-    for (String title in _todoList) {
-      _todoWidgets.add(_buildTodoItem(title));
+    for (Todo todo in _todoList) {
+      _todoWidgets.add(_buildTodoItem(todo, context));
     }
     return _todoWidgets;
   }
