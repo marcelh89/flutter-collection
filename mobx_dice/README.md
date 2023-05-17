@@ -16,9 +16,11 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 ## Additionals
+
 followed this tutorial to use [MobX](https://mobx.netlify.app/examples/dice) (State Management) with Flutter
 
 
 ## Run in Dev mode
+
 1. start in first console `flutter run -d chrome`
 2. run watcher in second console (to re-generate mobX code on development changes) `flutter pub run build_runner watch`

@@ -1,4 +1,4 @@
-# counter_mobx
+# mobx_todo
 
 A new Flutter project.
 
@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Additionals
 
-followed this tutorial to use [MobX](https://mobx.netlify.app/examples/counter/) (State Management) with Flutter
+followed this tutorial to use [MobX](https://mobx.netlify.app/examples/todos) (State Management) with Flutter
 
 ## Run in Dev mode
 
