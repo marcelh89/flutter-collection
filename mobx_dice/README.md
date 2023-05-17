@@ -1,4 +1,4 @@
-# counter_mobx
+# mobx_dice
 
 A new Flutter project.
 
@@ -15,9 +15,8 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-
 ## Additionals
-followed this tutorial to use [MobX](https://mobx.netlify.app/examples/counter/) (State Management) with Flutter
+followed this tutorial to use [MobX](https://mobx.netlify.app/examples/dice) (State Management) with Flutter
 
 
 ## Run in Dev mode
